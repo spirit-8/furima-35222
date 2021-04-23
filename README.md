@@ -16,6 +16,7 @@
 ### Association
 
 - has_many :products
+- has_many :purchases
 
 
 
@@ -52,6 +53,7 @@
 
 - has_one    :buyer
 - belongs_to :product
+- belongs_to :user
 
 
 ## Buyers
@@ -59,7 +61,7 @@
 | Colum        | Type       | Options                       |
 | ------------ | ---------- | ----------------------------- |
 | zip_code     | string     | null:false                    |
-| prefecture   | integer     | null:false                    |
+| prefecture_id   | integer     | null:false                    |
 | municipality | string     | null:false                    |
 | address      | string     | null:false                    |
 | building     | string     |                               |
@@ -68,5 +70,5 @@
 
 ### Association
 
-- belongs_to :purchases
+- belongs_to :purchase
 
