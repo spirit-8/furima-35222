@@ -16,8 +16,7 @@
 ### Association
 
 - has_many :products
-- has_many :purchases
-- has_one  :buyers
+
 
 
 
@@ -28,17 +27,17 @@
 | name               | string     | null:false                    |
 | description        | text       | null:false                    |
 | user               | references | null:false, foreign_key: true |
-| category_id        | string     | null:false                    |
-| status_id          | string     | null:false                    |
-| delivery_charge_id | string     | null:false                    |
-| delivery_source_id | string     | null:false                    |
-| until_delivery_id  | date       | null:false                    |
-| price              | integer    | null:false                    |
+| category_id        | integer     | null:false                    |
+| status_id          | integer     | null:false                    |
+| delivery_charge_id | integer     | null:false                    |
+| delivery_source_id | integer     | null:false                    |
+| until_delivery_id  | integer     | null:false                    |
+| price              | integer     | null:false                    |
 
 ### Association
 
-- belongs_to :users
-- has_many   :purchases
+- belongs_to :user
+- has_one   :purchase
 
 
 
@@ -51,8 +50,8 @@
 
 ### Association
 
-- belongs_to :users
-- belongs_to :products
+- has_one    :buyer
+- belongs_to :product
 
 
 ## Buyers
@@ -60,14 +59,14 @@
 | Colum        | Type       | Options                       |
 | ------------ | ---------- | ----------------------------- |
 | zip_code     | string     | null:false                    |
-| prefecture   | string     | null:false                    |
+| prefecture   | integer     | null:false                    |
 | municipality | string     | null:false                    |
 | address      | string     | null:false                    |
 | building     | string     |                               |
 | phone_number | string     | null:false                    |
-| user         | references | null:false, foreign_key: true |
+| purchase     | references | null:false, foreign_key: true |
 
 ### Association
 
-- belongs_to :users
+- belongs_to :purchases
 
