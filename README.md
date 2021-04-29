@@ -28,12 +28,12 @@
 | name               | string     | null:false                    |
 | description        | text       | null:false                    |
 | user               | references | null:false, foreign_key: true |
-| category_id        | integer     | null:false                    |
-| status_id          | integer     | null:false                    |
-| delivery_charge_id | integer     | null:false                    |
-| prefecture_id      | integer     | null:false                    |
-| until_delivery_id  | integer     | null:false                    |
-| price              | integer     | null:false                    |
+| category_id        | integer    | null:false                    |
+| status_id          | integer    | null:false                    |
+| delivery_charge_id | integer    | null:false                    |
+| prefecture_id      | integer    | null:false                    |
+| until_delivery_id  | integer    | null:false                    |
+| price              | integer    | null:false                    |
 
 ### Association
 

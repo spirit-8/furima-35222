@@ -4,6 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  has_many :products
+  
   zenkaku = /\A[ぁ-んァ-ヶ一-龥々ー]+\z/
   kanamoji = /\A[ァ-ヶー－]+\z/
   with_options presence: true do
