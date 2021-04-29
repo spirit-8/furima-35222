@@ -1,6 +1,12 @@
 class Product < ApplicationRecord
   belongs_to :user
 
+  with_options presence: true do
+    validates :name
+    validates :description
+    validates :price
+  end
+
   extend ActiveHash::Assoiations::ActiveRecordExtensions
   belongs_to :category
   belongs_to :sutatus
