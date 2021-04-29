@@ -3,10 +3,15 @@ class Product < ApplicationRecord
   has_one_attached :image
 
   with_options presence: true do
+    validates :image
     validates :name
     validates :description
-    validates :price
-    validates :image
+    validates :category_id, numericality: { other_than: 1, message: "カテゴリーを選択してください" }
+    validates :status_id, numericality: { other_than: 1, message: "商品の状態を選択してください" }
+    validates :delivery_charge_id, numericality: { other_than: 1, message: "配送料の負担を選択してください" }
+    validates :prefecture_id, numericality: { other_than: 1, message: "配送元の地域を選択してください" }
+    validates :until_delivery_id, numericality: { other_than: 1, message: "発送までの日数を選択してください" }
+    validates :price, format: { with: "/\A[0-9]+\z/", message: "半角数字で入力してください" }
   end
 
   extend ActiveHash::Assoiations::ActiveRecordExtensions
@@ -17,9 +22,5 @@ class Product < ApplicationRecord
   belongs_to :until_delivery
 
 
-  validates :category_id, numericality: { other_than: 1 }
-  validates :status_id, numericality: { other_than: 1 }
-  validates :delivery_charge_id, numericality: { other_than: 1 }
-  validates :prefecture_id, numericality: { other_than: 1 }
-  validates :until_delivery_id, numericality: { other_than: 1 }
+
 end
