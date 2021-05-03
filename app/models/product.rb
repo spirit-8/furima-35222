@@ -8,12 +8,14 @@ class Product < ApplicationRecord
     validates :image
     validates :name
     validates :description
-    validates :category_id, numericality: { other_than: 1, message: "カテゴリーを選択してください" }
-    validates :status_id, numericality: { other_than: 1, message: "商品の状態を選択してください" }
-    validates :delivery_charge_id, numericality: { other_than: 1, message: "配送料の負担を選択してください" }
-    validates :prefecture_id, numericality: { other_than: 1, message: "配送元の地域を選択してください" }
-    validates :until_delivery_id, numericality: { other_than: 1, message: "発送までの日数を選択してください" }
-    validates :price, format: { with: hankaku }, length: { minimum: 3, maxinum: 7 }, numericality: { only_integer: true, greater_than: 300, less_than: 9999999 }
+    with_options numericality: {other_than: 1} do
+      validates :category_id
+      validates :status_id
+      validates :delivery_charge_id
+      validates :prefecture_id
+      validates :until_delivery_id
+    end
+    validates :price, numericality: { only_integer: true, greater_than: 300, less_than: 9999999 }
   end
 
   extend ActiveHash::Associations::ActiveRecordExtensions
