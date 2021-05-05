@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update]
-  before_action :applicable_user, only: :edit
+  before_action :applicable_user, only: [:edit, :update]
   before_action :authenticate_user!, except: [:index, :show]
 
   def index
