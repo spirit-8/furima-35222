@@ -1,4 +1,6 @@
 class ProductsController < ApplicationController
+  before_action :set_product, only: [:show, :edit, :update]
+  before_action :applicable_user, only: :edit
   before_action :authenticate_user!, except: [:index, :show]
 
   def index
@@ -16,18 +18,12 @@ class ProductsController < ApplicationController
     end
   end
   def show
-    @product = Product.find(params[:id])
   end
   def edit
-    @product = Product.find(params[:id])
-    unless user_signed_in? && current_user.id == @product.user_id
-      redirect_to root_path
-    end
   end
   def update
-    @product = Product.find(params[:id])
     if @product.update(product_params)
-      redirect_to products: :edit
+      redirect_to product_path
     else
       render :edit
     end
@@ -37,5 +33,13 @@ class ProductsController < ApplicationController
 
   def product_params
     params.require(:product).permit(:image, :name, :description, :category_id, :status_id, :delivery_charge_id, :prefecture_id, :until_delivery_id, :price).merge(user_id: current_user.id)
+  end
+  def set_product
+    @product = Product.find(params[:id])
+  end
+  def applicable_user
+    unless current_user.id == @product.user_id
+      redirect_to root_path
+    end
   end
 end
