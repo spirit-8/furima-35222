@@ -1,9 +1,12 @@
 class PurchasesController < ApplicationController
-  before_action :sold_item, only: [:index]
+  before_action :authenticate_user!
 
   def index
     @purchase_buyer = PurchaseBuyer.new
     @product = Product.find(params[:product_id])
+    if @product.purchase.present? || @product.user_id == current_user.id
+      redirect_to root_path
+    end
   end
   def create
     @purchase_buyer = PurchaseBuyer.new(purchase_params)
@@ -21,12 +24,6 @@ class PurchasesController < ApplicationController
 
   def purchase_params
     params.require(:purchase_buyer).permit(:zip_code, :prefecture_id, :municipality, :address, :building, :phone_number ).merge(user_id: current_user.id, product_id: params[:product_id], token: params[:token])
-  end
-
-  def sold_item
-    if @product.present?
-      redirect_to root_path
-    end
   end
 
   def pay_item
