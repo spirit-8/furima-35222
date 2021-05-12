@@ -13,6 +13,10 @@ RSpec.describe PurchaseBuyer, type: :model do
       it 'すべての情報が正しく入力されていれば保存できる' do
         expect(@purchase_buyer).to be_valid
       end
+      it 'buildingは空でも保存できる' do
+        @purchase_buyer.building = ''
+        expect(@purchase_buyer).to be_valid
+      end
     end
 
     context '内容に問題がある場合' do
@@ -46,10 +50,6 @@ RSpec.describe PurchaseBuyer, type: :model do
         @purchase_buyer.valid?
         expect(@purchase_buyer.errors.full_messages).to include("Municipality can't be blank")
       end
-      it 'buildingは空でも保存できる' do
-        @purchase_buyer.building = ''
-        expect(@purchase_buyer).to be_valid
-      end
       it 'phone_numberが空だと保存できない' do
         @purchase_buyer.phone_number = ''
         @purchase_buyer.valid?
@@ -69,6 +69,16 @@ RSpec.describe PurchaseBuyer, type: :model do
         @purchase_buyer.token = nil
         @purchase_buyer.valid?
         expect(@purchase_buyer.errors.full_messages).to include("Token can't be blank")
+      end
+      it "user_idが空では保存できない" do
+        @purchase_buyer.user_id = nil
+        @purchase_buyer.valid?
+        expect(@purchase_buyer.errors.full_messages).to include("User can't be blank")
+      end
+      it "product_idが空では保存できない" do
+        @purchase_buyer.product_id = nil
+        @purchase_buyer.valid?
+        expect(@purchase_buyer.errors.full_messages).to include("Product can't be blank")
       end
     end
   end

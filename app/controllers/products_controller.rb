@@ -2,6 +2,7 @@ class ProductsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_product, only: [:show, :edit, :update, :destroy]
   before_action :applicable_user, only: [:edit, :update, :destroy]
+  before_action :sold_product, only: [:edit, :update, :destroy]
 
 
   def index
@@ -21,9 +22,6 @@ class ProductsController < ApplicationController
   def show
   end
   def edit
-    if @product.purchase.present?
-      redirect_to root_path
-    end
   end
   def update
     if @product.update(product_params)
@@ -47,6 +45,11 @@ class ProductsController < ApplicationController
   end
   def applicable_user
     unless current_user.id == @product.user_id
+      redirect_to root_path
+    end
+  end
+  def sold_product
+    if @product.purchase.present?
       redirect_to root_path
     end
   end
