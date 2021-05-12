@@ -80,6 +80,11 @@ RSpec.describe PurchaseBuyer, type: :model do
         @purchase_buyer.valid?
         expect(@purchase_buyer.errors.full_messages).to include("Product can't be blank")
       end
+      it "phone_numberが英数混合では保存できない" do
+        @purchase_buyer.phone_number = 'o9o12345678'
+        @purchase_buyer.valid?
+        expect(@purchase_buyer.errors.full_messages).to include("Phone number is invalid")
+      end
     end
   end
 end
